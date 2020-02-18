@@ -3,12 +3,11 @@ resource "azurerm_virtual_machine" "main" {
     vm_size     = var.ARM_VM_SIZE
     location    = var.ARM_VM_LOCATION
 
-    resource_group_name = data.azurerm_resource_group.rg_net_name.name
-  
-    network_interface_ids = [azurerm_network_interface.main.id]
+    resource_group_name     = var.ARM_RESOURCE_GROUP_NAME
+    network_interface_ids   = var.ARM_NIC_ID_LIST
     
-    delete_os_disk_on_termination       = var.DELETE_OS_DISK_ON_TERMINATION
-    delete_data_disks_on_termination    = var.DELETE_DATA_DISKS_ON_TERMINATION
+    delete_os_disk_on_termination       = var.ARM_DELETE_OS_DISK_ON_TERMINATION
+    delete_data_disks_on_termination    = var.ARM_DELETE_DATA_DISKS_ON_TERMINATION
 
     os_profile {
         computer_name   = var.ARM_OS_PROFILE_COMPUTER_NAME
@@ -39,31 +38,19 @@ resource "azurerm_virtual_machine" "main" {
         managed_disk_type   = var.ARM_STORAGE_OS_DISK_MANAGED_DISK_TYPE
     }
 
-    storage_data_disk {
-        name                = var.ARM_SQLSRV01_DATADISK_NAME
-        caching             = "ReadWrite"
-        managed_disk_type   = "Standard_LRS"
-        create_option       = "Empty"
-        disk_size_gb        = var.ARM_SQLSRV_DATADISK_SIZE
-        lun                 = 1 
-    }
-  
-    storage_data_disk {
-        name                = var.ARM_SQLSRV01_LOGDISK_NAME
-        caching             = "ReadWrite"
-        managed_disk_type   = "Standard_LRS"
-        create_option       = "Empty"
-        disk_size_gb        = var.ARM_SQLSRV_LOGDISK_SIZE
-        lun                 = 2
-    }
-  
-    storage_data_disk {
-        name = var.ARM_SQLSRV01_BACKUPDISK_NAME
-        caching           = "ReadWrite"
-        managed_disk_type = "Standard_LRS"
-        create_option     = "Empty"
-        disk_size_gb      = var.ARM_SQLSRV_BACKUPDISK_SIZE
-        lun               = 3
+    # https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each/
+
+    dynamic "storage_data_disk" {
+        for_each = var.ARM_STORAGE_DATA_DISK_LIST
+
+        content {
+            name                = storage_data_disk.name
+            caching             = storage_data_disk.caching
+            managed_disk_type   = storage_data_disk.managed_disk_type
+            create_option       = storage_data_disk.create_option
+            disk_size_gb        = storage_data_disk.disk_size_gb
+            lun                 = storage_data_disk.lun
+        }
     }
 
     tags = {

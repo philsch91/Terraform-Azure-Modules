@@ -1,6 +1,14 @@
 #--------------------------------------------------------------
 # Virtual machine input variables
 #--------------------------------------------------------------
+variable "ARM_RESOURCE_GROUP_NAME" {
+    description = "The name of the already existing resource group e.g. data.azurerm_resource_group.rg_net_name.name"
+    type        = string
+}
+variable "ARM_NIC_ID_LIST" {
+    description = "The list with the network ids"
+    type        = list(string)
+}
 variable "ARM_VM_NAME" {
     description = "tbd"
     type        = string
@@ -9,19 +17,16 @@ variable "ARM_VM_SIZE" {
     description = "tbd"
     type        = number
 }
-
 variable "ARM_VM_LOCATION" {
     description = "tbd"
     type        = string
 }
-
-variable "DELETE_OS_DISK_ON_TERMINATION" {
+variable "ARM_DELETE_OS_DISK_ON_TERMINATION" {
     description = "tbd"
     type        = bool
     default     = true
 }
-
-variable "DELETE_DATA_DISKS_ON_TERMINATION" {
+variable "ARM_DELETE_DATA_DISKS_ON_TERMINATION" {
     description = "tbd"
     type        = bool
     default     = true
@@ -59,20 +64,38 @@ variable "ARM_STORAGE_IMAGE_VERSION" {
 
 variable "ARM_STORAGE_OS_DISK_NAME" {
     description = "tbd"
+    type        = string
 }
 variable "ARM_STORAGE_OS_DISK_CACHING" {
     description = "tbd"
-    default = "ReadWrite"
+    type        = string
+    default     = "ReadWrite"
 }
 variable "ARM_STORAGE_OS_DISK_CREATE_OPTION" {
     description = "tbd"
-    default = "FromImage"
+    type        = string
+    default     = "FromImage"
 }
 variable "ARM_STORAGE_OS_DISK_MANAGED_DISK_TYPE" {
     description = "tbd"
-    default = "Standard_LRS"
+    type        = string
+    default     = "Standard_LRS"
 }
 
+#STORAGE_DATA_DISK
+
+variable "ARM_STORAGE_DATA_DISK_LIST" {
+    description = "list of storage data disks for the virtual machine"
+    type = list(object({
+        name                = string
+        caching             = string
+        managed_disk_type   = string
+        create_option       = string
+        disk_size_gb        = number
+        lun                 = number
+    }))
+    default = []
+}
 
 variable "ARM_SQLSRV01_DATADISK_NAME" {
     description = ""
