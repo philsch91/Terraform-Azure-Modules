@@ -96,16 +96,3 @@ variable "ARM_STORAGE_DATA_DISK_LIST" {
     }))
     default = []
 }
-
-variable "ARM_SQLSRV01_DATADISK_NAME" {
-    description = ""
-    default ="SQLSRV01_Data"
-}
-variable "ARM_SQLSRV01_LOGDISK_NAME" {
-    description = ""
-    default = "SQLSRV01_LOG"
-}
-variable "ARM_SQLSRV01_BACKUPDISK_NAME" {
-    description = ""
-    default = "SQLSRV01_BACKUP"
-}
