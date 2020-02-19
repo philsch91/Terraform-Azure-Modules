@@ -6,7 +6,7 @@ variable "ARM_RESOURCE_GROUP_NAME" {
     type        = string
 }
 variable "ARM_NIC_ID_LIST" {
-    description = "The list with the network ids"
+    description = "The list with the IDs of the NICs"
     type        = list(string)
 }
 variable "ARM_VM_NAME" {
@@ -44,7 +44,7 @@ variable "ARM_OS_PROFILE_ADMIN_PASSWORD" {
     description = "tbd"
 }
 
-#STORAGE_IMAGE_REFERENCE
+#STORAGE_IMAGE
 
 variable "ARM_STORAGE_IMAGE_PUBLISHER" {
     description = "MicrosoftWindowsServer or RedHat"
@@ -58,6 +58,11 @@ variable "ARM_STORAGE_IMAGE_SKU" {
 variable "ARM_STORAGE_IMAGE_VERSION" {
     description = "latest"
     default = "latest"
+}
+variable "ARM_OS_TYPE" {
+    description = "Linux or Windows"
+    type        = string
+    default     = "Linux"
 }
 
 #STORAGE_OS_DISK

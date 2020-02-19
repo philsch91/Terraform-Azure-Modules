@@ -15,13 +15,29 @@ resource "azurerm_virtual_machine" "main" {
         admin_password  = var.ARM_OS_PROFILE_ADMIN_PASSWORD
     }
 
-    os_profile_linux_config {
-        disable_password_authentication = false
+    dynamic "os_profile_linux_config" {
+        for_each = lower(var.os_type) == "linux" ? ["1"] : []
+
+        content {
+            disable_password_authentication = var.disable_password_auth
+            /*
+            dynamic "ssh_keys" {
+                for_each = data.azurerm_key_vault_secret.ssh_pubkeys_values.*.value
+                content {
+                    path     = "/home/fallback/.ssh/authorized_keys"
+                    key_data = ssh_keys.value
+                }
+            } */
+        }
     }
 
-    os_profile_windows_config {
-        provision_vm_agent          = true
-        enable_automatic_upgrades   = false
+    dynamic "os_profile_windows_config" {
+        for_each = lower(var.os_type) == "windows" ? ["1"] : []
+
+        content {
+            provision_vm_agent          = true
+            enable_automatic_upgrades   = false
+        }
     }
 
     storage_image_reference {
