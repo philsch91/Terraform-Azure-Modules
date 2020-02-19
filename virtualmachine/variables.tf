@@ -14,8 +14,8 @@ variable "ARM_VM_NAME" {
     type        = string
 }
 variable "ARM_VM_SIZE" {
-    description = "tbd"
-    type        = number
+    description = "Azure virtual machine size e.g. Standard_DS1_v2"
+    type        = string
 }
 variable "ARM_VM_LOCATION" {
     description = "tbd"
