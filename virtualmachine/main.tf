@@ -16,7 +16,7 @@ resource "azurerm_virtual_machine" "main" {
     }
 
     dynamic "os_profile_linux_config" {
-        for_each = lower(var.os_type) == "linux" ? ["1"] : []
+        for_each = lower(var.ARM_OS_TYPE) == "linux" ? ["1"] : []
 
         content {
             disable_password_authentication = var.disable_password_auth
@@ -32,7 +32,7 @@ resource "azurerm_virtual_machine" "main" {
     }
 
     dynamic "os_profile_windows_config" {
-        for_each = lower(var.os_type) == "windows" ? ["1"] : []
+        for_each = lower(var.ARM_OS_TYPE) == "windows" ? ["1"] : []
 
         content {
             provision_vm_agent          = true
