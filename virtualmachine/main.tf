@@ -19,7 +19,7 @@ resource "azurerm_virtual_machine" "main" {
         for_each = lower(var.ARM_OS_TYPE) == "linux" ? ["1"] : []
 
         content {
-            disable_password_authentication = var.disable_password_auth
+            disable_password_authentication = var.ARM_DISABLE_PASSWORD_AUTH
             /*
             dynamic "ssh_keys" {
                 for_each = data.azurerm_key_vault_secret.ssh_pubkeys_values.*.value

@@ -101,3 +101,9 @@ variable "ARM_STORAGE_DATA_DISK_LIST" {
     }))
     default = []
 }
+
+variable "ARM_DISABLE_PASSWORD_AUTH" {
+    description = "tbd"
+    type        = bool
+    default     = false
+}
