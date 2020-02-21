@@ -3,7 +3,7 @@ resource "azurerm_virtual_machine_extension" "main" {
     location            = var.LOCATION_NAME
     resource_group_name = var.RESOURCE_GROUP_NAME
     
-    #virtual_machine_id      = var.VM_ID
+    virtual_machine_id      = var.VM_ID
     virtual_machine_name    = var.VM_NAME
     
     publisher            = var.VM_EXTENSION_PUBLISHER
