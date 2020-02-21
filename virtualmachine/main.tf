@@ -60,12 +60,12 @@ resource "azurerm_virtual_machine" "main" {
         for_each = var.ARM_STORAGE_DATA_DISK_LIST
 
         content {
-            name                = storage_data_disk.name
-            caching             = storage_data_disk.caching
-            managed_disk_type   = storage_data_disk.managed_disk_type
-            create_option       = storage_data_disk.create_option
-            disk_size_gb        = storage_data_disk.disk_size_gb
-            lun                 = storage_data_disk.lun
+            name                = storage_data_disk.value.name
+            caching             = storage_data_disk.value.caching
+            managed_disk_type   = storage_data_disk.value.managed_disk_type
+            create_option       = storage_data_disk.value.create_option
+            disk_size_gb        = storage_data_disk.value.disk_size_gb
+            lun                 = storage_data_disk.value.lun
         }
     }
 
