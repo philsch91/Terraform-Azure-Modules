@@ -110,6 +110,17 @@ variable "ARM_DISABLE_PASSWORD_AUTH" {
 
 #UNATTEND_CONFIG
 
+variable "ADDITIONAL_UNATTEND_CONFIG_LIST" {
+    description = "list of unattended configs for the virtual machine"
+    type = list(object({
+        pass            = string,
+        component       = string,
+        setting_name    = string,
+        content         = string
+    }))
+    default = []
+}
+
 variable "UNATTEND_CONFIG_PASS" {
     description = "The pass e.g. oobeSystem"
     type        = string

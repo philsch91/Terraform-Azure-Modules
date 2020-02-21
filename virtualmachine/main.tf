@@ -37,6 +37,17 @@ resource "azurerm_virtual_machine" "main" {
         content {
             provision_vm_agent          = true
             enable_automatic_upgrades   = false
+
+            dynamic "additional_unattend_config" {
+                for_each = var.ADDITIONAL_UNATTEND_CONFIG_LIST
+
+                content {
+                    pass            = var.UNATTEND_CONFIG_PASS
+                    component       = var.UNATTEND_CONFIG_COMPONENT
+                    setting_name    = var.UNATTEND_CONFIG_SETTING_NAME
+                    content         = var.UNATTEND_CONFIG_CONTENT
+                }
+            }
         }
     }
 
@@ -67,13 +78,6 @@ resource "azurerm_virtual_machine" "main" {
             disk_size_gb        = storage_data_disk.value.disk_size_gb
             lun                 = storage_data_disk.value.lun
         }
-    }
-
-    additional_unattend_config {
-        pass            = var.UNATTEND_CONFIG_PASS
-        component       = var.UNATTEND_CONFIG_COMPONENT
-        setting_name    = var.UNATTEND_CONFIG_SETTING_NAME
-        content         = var.UNATTEND_CONFIG_CONTENT
     }
     
     dynamic "additional_unattend_config" {
