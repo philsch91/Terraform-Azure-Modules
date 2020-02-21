@@ -1,32 +1,32 @@
 #--------------------------------------------------------------
 # Virtual machine input variables
 #--------------------------------------------------------------
-variable "ARM_RESOURCE_GROUP_NAME" {
+variable "RESOURCE_GROUP_NAME" {
     description = "The name of the already existing resource group e.g. data.azurerm_resource_group.rg_net_name.name"
     type        = string
 }
-variable "ARM_NIC_ID_LIST" {
+variable "NIC_ID_LIST" {
     description = "The list with the IDs of the NICs"
     type        = list(string)
 }
-variable "ARM_VM_NAME" {
+variable "VM_NAME" {
     description = "tbd"
     type        = string
 }
-variable "ARM_VM_SIZE" {
+variable "VM_SIZE" {
     description = "Azure virtual machine size e.g. Standard_DS1_v2"
     type        = string
 }
-variable "ARM_VM_LOCATION" {
+variable "VM_LOCATION" {
     description = "tbd"
     type        = string
 }
-variable "ARM_DELETE_OS_DISK_ON_TERMINATION" {
+variable "DELETE_OS_DISK_ON_TERMINATION" {
     description = "tbd"
     type        = bool
     default     = true
 }
-variable "ARM_DELETE_DATA_DISKS_ON_TERMINATION" {
+variable "DELETE_DATA_DISKS_ON_TERMINATION" {
     description = "tbd"
     type        = bool
     default     = true
@@ -34,32 +34,32 @@ variable "ARM_DELETE_DATA_DISKS_ON_TERMINATION" {
 
 #OS_PROFILE
 
-variable "ARM_OS_PROFILE_COMPUTER_NAME" {
+variable "OS_PROFILE_COMPUTER_NAME" {
     description = "tbd"
 }
-variable "ARM_OS_PROFILE_ADMIN_USERNAME" {
+variable "OS_PROFILE_ADMIN_USERNAME" {
     description = "tbd"
 }
-variable "ARM_OS_PROFILE_ADMIN_PASSWORD" {
+variable "OS_PROFILE_ADMIN_PASSWORD" {
     description = "tbd"
 }
 
 #STORAGE_IMAGE
 
-variable "ARM_STORAGE_IMAGE_PUBLISHER" {
+variable "STORAGE_IMAGE_PUBLISHER" {
     description = "MicrosoftWindowsServer or RedHat"
 }
-variable "ARM_STORAGE_IMAGE_OFFER" {
+variable "STORAGE_IMAGE_OFFER" {
     description = "WindowsServer or RHEL"
 }
-variable "ARM_STORAGE_IMAGE_SKU" {
+variable "STORAGE_IMAGE_SKU" {
     description = "2016-Datacenter or 7-LVM"
 }
-variable "ARM_STORAGE_IMAGE_VERSION" {
+variable "STORAGE_IMAGE_VERSION" {
     description = "latest"
     default = "latest"
 }
-variable "ARM_OS_TYPE" {
+variable "OS_TYPE" {
     description = "Linux or Windows"
     type        = string
     default     = "Linux"
@@ -67,21 +67,21 @@ variable "ARM_OS_TYPE" {
 
 #STORAGE_OS_DISK
 
-variable "ARM_STORAGE_OS_DISK_NAME" {
+variable "STORAGE_OS_DISK_NAME" {
     description = "tbd"
     type        = string
 }
-variable "ARM_STORAGE_OS_DISK_CACHING" {
+variable "STORAGE_OS_DISK_CACHING" {
     description = "tbd"
     type        = string
     default     = "ReadWrite"
 }
-variable "ARM_STORAGE_OS_DISK_CREATE_OPTION" {
+variable "STORAGE_OS_DISK_CREATE_OPTION" {
     description = "tbd"
     type        = string
     default     = "FromImage"
 }
-variable "ARM_STORAGE_OS_DISK_MANAGED_DISK_TYPE" {
+variable "STORAGE_OS_DISK_MANAGED_DISK_TYPE" {
     description = "tbd"
     type        = string
     default     = "Standard_LRS"
@@ -89,7 +89,7 @@ variable "ARM_STORAGE_OS_DISK_MANAGED_DISK_TYPE" {
 
 #STORAGE_DATA_DISK
 
-variable "ARM_STORAGE_DATA_DISK_LIST" {
+variable "STORAGE_DATA_DISK_LIST" {
     description = "list of storage data disks for the virtual machine"
     type = list(object({
         name                = string,
@@ -102,7 +102,7 @@ variable "ARM_STORAGE_DATA_DISK_LIST" {
     default = []
 }
 
-variable "ARM_DISABLE_PASSWORD_AUTH" {
+variable "DISABLE_PASSWORD_AUTH" {
     description = "tbd"
     type        = bool
     default     = false
@@ -131,7 +131,6 @@ variable "UNATTEND_CONFIG_COMPONENT" {
     type        = string
     default     = null
 }
-
 variable "UNATTEND_CONFIG_SETTING_NAME" {
     description = "The setting name e.g. AutoLogon"
     type        = string

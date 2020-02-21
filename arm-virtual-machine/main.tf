@@ -1,25 +1,25 @@
 resource "azurerm_virtual_machine" "main" {
-    name        = var.ARM_VM_NAME
-    vm_size     = var.ARM_VM_SIZE
-    location    = var.ARM_VM_LOCATION
+    name        = var.VM_NAME
+    vm_size     = var.VM_SIZE
+    location    = var.VM_LOCATION
 
-    resource_group_name     = var.ARM_RESOURCE_GROUP_NAME
-    network_interface_ids   = var.ARM_NIC_ID_LIST
+    resource_group_name     = var.RESOURCE_GROUP_NAME
+    network_interface_ids   = var.NIC_ID_LIST
     
-    delete_os_disk_on_termination       = var.ARM_DELETE_OS_DISK_ON_TERMINATION
-    delete_data_disks_on_termination    = var.ARM_DELETE_DATA_DISKS_ON_TERMINATION
+    delete_os_disk_on_termination       = var.DELETE_OS_DISK_ON_TERMINATION
+    delete_data_disks_on_termination    = var.DELETE_DATA_DISKS_ON_TERMINATION
 
     os_profile {
-        computer_name   = var.ARM_OS_PROFILE_COMPUTER_NAME
-        admin_username  = var.ARM_OS_PROFILE_ADMIN_USERNAME
-        admin_password  = var.ARM_OS_PROFILE_ADMIN_PASSWORD
+        computer_name   = var.OS_PROFILE_COMPUTER_NAME
+        admin_username  = var.OS_PROFILE_ADMIN_USERNAME
+        admin_password  = var.OS_PROFILE_ADMIN_PASSWORD
     }
 
     dynamic "os_profile_linux_config" {
-        for_each = lower(var.ARM_OS_TYPE) == "linux" ? ["1"] : []
+        for_each = lower(var.OS_TYPE) == "linux" ? ["1"] : []
 
         content {
-            disable_password_authentication = var.ARM_DISABLE_PASSWORD_AUTH
+            disable_password_authentication = var.DISABLE_PASSWORD_AUTH
             /*
             dynamic "ssh_keys" {
                 for_each = data.azurerm_key_vault_secret.ssh_pubkeys_values.*.value
@@ -32,7 +32,7 @@ resource "azurerm_virtual_machine" "main" {
     }
 
     dynamic "os_profile_windows_config" {
-        for_each = lower(var.ARM_OS_TYPE) == "windows" ? ["1"] : []
+        for_each = lower(var.OS_TYPE) == "windows" ? ["1"] : []
 
         content {
             provision_vm_agent          = true
@@ -64,23 +64,23 @@ resource "azurerm_virtual_machine" "main" {
     }
 
     storage_image_reference {
-        publisher   = var.ARM_STORAGE_IMAGE_PUBLISHER
-        offer       = var.ARM_STORAGE_IMAGE_OFFER
-        sku         = var.ARM_STORAGE_IMAGE_SKU
-        version     = var.ARM_STORAGE_IMAGE_VERSION
+        publisher   = var.STORAGE_IMAGE_PUBLISHER
+        offer       = var.STORAGE_IMAGE_OFFER
+        sku         = var.STORAGE_IMAGE_SKU
+        version     = var.STORAGE_IMAGE_VERSION
     }
 
     storage_os_disk {
-        name                = var.ARM_STORAGE_OS_DISK_NAME
-        caching             = var.ARM_STORAGE_OS_DISK_CACHING
-        create_option       = var.ARM_STORAGE_OS_DISK_CREATE_OPTION
-        managed_disk_type   = var.ARM_STORAGE_OS_DISK_MANAGED_DISK_TYPE
+        name                = var.STORAGE_OS_DISK_NAME
+        caching             = var.STORAGE_OS_DISK_CACHING
+        create_option       = var.STORAGE_OS_DISK_CREATE_OPTION
+        managed_disk_type   = var.STORAGE_OS_DISK_MANAGED_DISK_TYPE
     }
 
     # https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each/
 
     dynamic "storage_data_disk" {
-        for_each = var.ARM_STORAGE_DATA_DISK_LIST
+        for_each = var.STORAGE_DATA_DISK_LIST
 
         content {
             name                = storage_data_disk.value.name
