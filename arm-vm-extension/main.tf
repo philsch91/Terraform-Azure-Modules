@@ -1,10 +1,11 @@
 resource "azurerm_virtual_machine_extension" "main" {
-    name                = var.VM_EXTENSION_NAME
-    location            = var.LOCATION_NAME
-    resource_group_name = var.RESOURCE_GROUP_NAME
+    name = var.VM_EXTENSION_NAME
     
-    virtual_machine_id      = var.VM_ID
+    resource_group_name     = var.RESOURCE_GROUP_NAME
+    location                = var.LOCATION_NAME
     virtual_machine_name    = var.VM_NAME
+    
+    //virtual_machine_id      = var.VM_ID
     
     publisher            = var.VM_EXTENSION_PUBLISHER
     type                 = var.VM_EXTENSION_TYPE
@@ -27,7 +28,7 @@ resource "azurerm_virtual_machine_extension" "main" {
     }
     SETTINGS */
 
-    #settings = format("<<SETTINGS %s SETTINGS",jsonencode(var.VM_EXTENSION_SETTINGS))
+    //settings = format("<<SETTINGS %s SETTINGS",jsonencode(var.VM_EXTENSION_SETTINGS))
     settings = jsonencode(var.VM_EXTENSION_SETTINGS)
     /*
     protected_settings = <<PROTECTED_SETTINGS
@@ -36,7 +37,7 @@ resource "azurerm_virtual_machine_extension" "main" {
     }
     PROTECTED_SETTINGS */
 
-    #protected_settings = format("<<PROTECTED_SETTINGS %s PROTECTED_SETTINGS",jsonencode(var.VM_EXTENSION_PROTECTED_SETTINGS))
+    //protected_settings = format("<<PROTECTED_SETTINGS %s PROTECTED_SETTINGS",jsonencode(var.VM_EXTENSION_PROTECTED_SETTINGS))
     protected_settings = jsonencode(var.VM_EXTENSION_PROTECTED_SETTINGS)
 
     //depends_on = ["azurerm_virtual_machine.vm"]
