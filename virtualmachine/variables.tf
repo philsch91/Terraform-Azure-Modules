@@ -118,11 +118,13 @@ variable "UNATTEND_CONFIG_PASS" {
 variable "UNATTEND_CONFIG_COMPONENT" {
     description = "The component like Microsoft-Windows-Shell-Setup"
     type        = string
+    default     = null
 }
 
 variable "UNATTEND_CONFIG_SETTING_NAME" {
     description = "The setting name e.g. AutoLogon"
     type        = string
+    default     = null
 }
 variable "UNATTEND_CONFIG_CONTENT" {
     description = "The configuration content usually a xml value"

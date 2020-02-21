@@ -54,6 +54,23 @@ module "virtualmachine" {
     ARM_STORAGE_OS_DISK_CREATE_OPTION       = "FromImage"
     ARM_STORAGE_OS_DISK_MANAGED_DISK_TYPE   = var.ARM_IMGSRV_STORAGE_OS_DISK_MANAGED_DISK_TYPE
 
-    #ARM_STORAGE_DATA_DISK_LIST              = []
+    ARM_STORAGE_DATA_DISK_LIST              = [
+        {
+            name                = var.ARM_DATADISK_NAME
+            caching             = "ReadWrite"
+            managed_disk_type   = "Standard_LRS"
+            create_option       = "Empty"
+            disk_size_gb        = var.ARM_DATADISK_SIZE
+            lun                 = 1
+        }
+    ]
+
+    UNATTEND_CONFIG_PASS
+    UNATTEND_CONFIG_COMPONENT
+    UNATTEND_CONFIG_SETTING_NAME
+    UNATTEND_CONFIG_CONTENT
+
+    AUTO_LOGON_USERNAME = "DOMAIN\\USERNAME"
+    AUTO_LOGON_PASSWORD = "Pa55w0rd"
 }
 ```
