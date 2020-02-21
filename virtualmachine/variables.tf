@@ -92,11 +92,11 @@ variable "ARM_STORAGE_OS_DISK_MANAGED_DISK_TYPE" {
 variable "ARM_STORAGE_DATA_DISK_LIST" {
     description = "list of storage data disks for the virtual machine"
     type = list(object({
-        name                = string
-        caching             = string
-        managed_disk_type   = string
-        create_option       = string
-        disk_size_gb        = number
+        name                = string,
+        caching             = string,
+        managed_disk_type   = string,
+        create_option       = string,
+        disk_size_gb        = number,
         lun                 = number
     }))
     default = []
