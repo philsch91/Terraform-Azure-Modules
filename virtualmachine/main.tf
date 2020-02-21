@@ -69,6 +69,25 @@ resource "azurerm_virtual_machine" "main" {
         }
     }
 
+    additional_unattend_config {
+        pass            = var.UNATTEND_CONFIG_PASS
+        component       = var.UNATTEND_CONFIG_COMPONENT
+        setting_name    = var.UNATTEND_CONFIG_SETTING_NAME
+        content         = var.UNATTEND_CONFIG_CONTENT
+    }
+    
+    dynamic "additional_unattend_config" {
+        for_each = var.AUTO_LOGON_USERNAME != null && var.AUTO_LOGON_PASSWORD != null ? ["1"] : []
+        
+        content {
+            #pass            = additional_unattend_config.value.pass
+            pass            = "oobeSystem"
+            component       = "Microsoft-Windows-Shell-Setup"
+            setting_name    = "AutoLogon"
+            content         = "<AutoLogon><Username>${var.AUTO_LOGON_USERNAME}</Username><Password><Value>${var.AUTO_LOGON_PASSWORD}</Value></Password><Enabled>true</Enabled><LogonCount>1</LogonCount></AutoLogon>"
+        }
+    }
+
     tags = {
         environment = "staging"
     }

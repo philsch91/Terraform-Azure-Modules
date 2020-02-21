@@ -27,7 +27,8 @@ resource "azurerm_virtual_machine_extension" "main" {
     }
     SETTINGS */
 
-    settings = format("<<SETTINGS %s SETTINGS",jsonencode(var.VM_EXTENSION_SETTINGS))
+    #settings = format("<<SETTINGS %s SETTINGS",jsonencode(var.VM_EXTENSION_SETTINGS))
+    settings = jsonencode(var.VM_EXTENSION_SETTINGS)
     /*
     protected_settings = <<PROTECTED_SETTINGS
     {
@@ -35,7 +36,8 @@ resource "azurerm_virtual_machine_extension" "main" {
     }
     PROTECTED_SETTINGS */
 
-    protected_settings = format("<<PROTECTED_SETTINGS %s PROTECTED_SETTINGS",jsonencode(var.VM_EXTENSION_PROTECTED_SETTINGS))
+    #protected_settings = format("<<PROTECTED_SETTINGS %s PROTECTED_SETTINGS",jsonencode(var.VM_EXTENSION_PROTECTED_SETTINGS))
+    protected_settings = jsonencode(var.VM_EXTENSION_PROTECTED_SETTINGS)
 
     //depends_on = ["azurerm_virtual_machine.vm"]
 

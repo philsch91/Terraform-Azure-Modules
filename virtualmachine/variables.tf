@@ -107,3 +107,38 @@ variable "ARM_DISABLE_PASSWORD_AUTH" {
     type        = bool
     default     = false
 }
+
+#UNATTEND_CONFIG
+
+variable "UNATTEND_CONFIG_PASS" {
+    description = "The pass e.g. oobeSystem"
+    type        = string
+    default     = null
+}
+variable "UNATTEND_CONFIG_COMPONENT" {
+    description = "The component like Microsoft-Windows-Shell-Setup"
+    type        = string
+}
+
+variable "UNATTEND_CONFIG_SETTING_NAME" {
+    description = "The setting name e.g. AutoLogon"
+    type        = string
+}
+variable "UNATTEND_CONFIG_CONTENT" {
+    description = "The configuration content usually a xml value"
+    type        = string
+    default     = null
+}
+
+#UNATTEND_CONFIG_AUTO_LOGON
+
+variable "AUTO_LOGON_USERNAME" {
+    description = "tbd"
+    type        = string
+    default     = null
+}
+variable "AUTO_LOGON_PASSWORD" {
+    description = "tbd"
+    type        = string
+    default     = null
+}
