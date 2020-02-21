@@ -39,6 +39,18 @@ resource "azurerm_virtual_machine" "main" {
             enable_automatic_upgrades   = false
 
             dynamic "additional_unattend_config" {
+                for_each = var.AUTO_LOGON_USERNAME != null && var.AUTO_LOGON_PASSWORD != null ? ["1"] : []
+        
+                content {
+                    #pass            = additional_unattend_config.value.pass
+                    pass            = "oobeSystem"
+                    component       = "Microsoft-Windows-Shell-Setup"
+                    setting_name    = "AutoLogon"
+                    content         = "<AutoLogon><Username>${var.AUTO_LOGON_USERNAME}</Username><Password><Value>${var.AUTO_LOGON_PASSWORD}</Value></Password><Enabled>true</Enabled><LogonCount>1</LogonCount></AutoLogon>"
+                }
+            }
+
+            dynamic "additional_unattend_config" {
                 for_each = var.ADDITIONAL_UNATTEND_CONFIG_LIST
 
                 content {
@@ -77,18 +89,6 @@ resource "azurerm_virtual_machine" "main" {
             create_option       = storage_data_disk.value.create_option
             disk_size_gb        = storage_data_disk.value.disk_size_gb
             lun                 = storage_data_disk.value.lun
-        }
-    }
-    
-    dynamic "additional_unattend_config" {
-        for_each = var.AUTO_LOGON_USERNAME != null && var.AUTO_LOGON_PASSWORD != null ? ["1"] : []
-        
-        content {
-            #pass            = additional_unattend_config.value.pass
-            pass            = "oobeSystem"
-            component       = "Microsoft-Windows-Shell-Setup"
-            setting_name    = "AutoLogon"
-            content         = "<AutoLogon><Username>${var.AUTO_LOGON_USERNAME}</Username><Password><Value>${var.AUTO_LOGON_PASSWORD}</Value></Password><Enabled>true</Enabled><LogonCount>1</LogonCount></AutoLogon>"
         }
     }
 
