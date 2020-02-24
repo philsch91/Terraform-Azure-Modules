@@ -54,10 +54,10 @@ resource "azurerm_virtual_machine" "main" {
                 for_each = var.ADDITIONAL_UNATTEND_CONFIG_LIST
 
                 content {
-                    pass            = var.UNATTEND_CONFIG_PASS
-                    component       = var.UNATTEND_CONFIG_COMPONENT
-                    setting_name    = var.UNATTEND_CONFIG_SETTING_NAME
-                    content         = var.UNATTEND_CONFIG_CONTENT
+                    pass            = var.additional_unattend_config.value.pass
+                    component       = var.additional_unattend_config.value.component
+                    setting_name    = var.additional_unattend_config.value.setting_name
+                    content         = var.additional_unattend_config.value.content
                 }
             }
         }
